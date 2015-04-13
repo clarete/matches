@@ -11,7 +11,7 @@ def test_matches_scan_dict():
         {"message": {"headers": dict}},
         # data
         {}
-    ).should.be.none
+    ).should.equal({})
 
     # Try to match against a wrong type
     matches.extract_from_pattern(
@@ -19,7 +19,7 @@ def test_matches_scan_dict():
         {"message": {"headers": dict}},
         # data
         {"message": "test"}
-    ).should.be.none
+    ).should.equal({})
 
     # Try to match against a wrong type
     matches.extract_from_pattern(
@@ -35,7 +35,7 @@ def test_matches_scan_dict():
         {"message": {"headers": {"message_id": str}, "body": str}},
         # data
         {"message": {"headers": {"message_id": "The ID"}}}
-    ).should.be.none
+    ).should.equal({"message_id": "The ID"})
 
     # Try to match multiple keys and succeed
     matches.extract_from_pattern(

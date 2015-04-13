@@ -29,7 +29,7 @@ def extract_from_pattern(pattern0, data0):
         if isinstance(data, dict):
             for key, value in pattern.items():
                 if not key in data.keys():
-                    raise KeyError(key, data)
+                    continue
                 if isinstance(value, type):
                     yield {key: data[key]}
                 if isinstance(value, dict):
@@ -37,11 +37,7 @@ def extract_from_pattern(pattern0, data0):
                     for found in scan(value, data[key]):
                         yield found
 
-    try:
-        output = dict({x.items()[0] for x in scan(pattern0, data0)})
-        return output or None
-    except KeyError:
-        return None
+    return dict({x.items()[0] for x in scan(pattern0, data0)})
 
 
 def match(pattern):
