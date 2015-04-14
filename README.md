@@ -11,23 +11,19 @@ dictionaries, the `@match` decorator can be used to extract only the
 needed fields:
 
 ```python
->>> import matches
->>> @matches.match({"message": {"headers": {"title": str}, "body": str}})
-... def on_message_received(title=None, body=None):
-...     return title, body
+import matches
+@matches.match({"message": {"headers": {"title": str}, "body": str}})
+def on_message_received(title=None, body=None):
+    return title, body
 ```
 
 Here are a few cases and how matches works for each of them:
 
 ```python
->>> on_message_received({})
-(None, None)
->>> on_message_received({"message": {"headers": {"title": "Test"}}})
-("Test", None)
->>> on_message_received({"message": {"body": "My message"}})
-(None, "My message")
->>> on_message_received({"message": {"headers": {"title": "Name"}, "body": "Content"}})
-("Name", "Content")
+assert on_message_received({}) == (None, None)
+assert on_message_received({"message": {"headers": {"title": "Test"}}}) == ("Test", None)
+assert on_message_received({"message": {"body": "My message"}}) == (None, "My message")
+assert on_message_received({"message": {"headers": {"title": "Name"}, "body": "Content"}}) == ("Name", "Content")
 ```
 
 ## License
